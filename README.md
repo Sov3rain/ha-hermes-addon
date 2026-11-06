@@ -20,3 +20,9 @@ upstream version; no moving `latest` tag is used.
 This is a community fork of [diegaccio/ha-hermes-addon](https://github.com/diegaccio/ha-hermes-addon),
 not an official Nous Research or Home Assistant app.
 See [configuration and migration notes](hermes_agent/DOCS.md).
+
+## Optional sidebar logo
+
+The [Hermes icon module and setup instructions](frontend/README.md) are included
+for Home Assistant sidebar customization. This optional module must be installed
+in Home Assistant separately; the app does not modify Core configuration.
