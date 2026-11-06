@@ -1,3 +1,10 @@
+# 0.23.0-2
+
+- Fix lazy-loaded chat assets using the Home Assistant ingress prefix.
+- Rename patched JavaScript assets to invalidate immutable browser caches.
+- Disable embedded terminal leave alerts that block opening the dashboard.
+- Start terminal shells in the persistent workspace with the correct HOME.
+
 # 0.23.0-1
 
 - Upgrade the official Hermes image to stable v0.23.0.

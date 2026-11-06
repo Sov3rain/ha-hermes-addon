@@ -22,6 +22,9 @@ LABEL \
 
 ENV HERMES_HOME=/data
 
+COPY fix-web-prefix.py /tmp/fix-web-prefix.py
+RUN /opt/hermes/.venv/bin/python /tmp/fix-web-prefix.py
+
 COPY ingress.conf /etc/nginx/nginx.conf
 COPY landing.html /usr/share/nginx/html/index.html
 COPY services/ /etc/services.d/

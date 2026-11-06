@@ -1,4 +1,6 @@
 #!/command/with-contenv sh
 set -eu
 if [ "${ENABLE_TERMINAL:-true}" != true ]; then exec sleep infinity; fi
-exec s6-setuidgid hermes ttyd -W -i 127.0.0.1 -p 7681 -b /terminal bash -l
+export HOME="${HERMES_HOME:-/data}"
+cd /data/workspace
+exec s6-setuidgid hermes ttyd -W -t disableLeaveAlert=true -i 127.0.0.1 -p 7681 -b /terminal bash

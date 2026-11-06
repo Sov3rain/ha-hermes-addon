@@ -1,7 +1,7 @@
 # Hermes Agent for Home Assistant OS — Sov3rain fork
 
 Home Assistant app wrapping the official Nous Research Hermes Docker image.
-Current release: Hermes **v0.23.0**, app **0.23.0-1**.
+Current release: Hermes **v0.23.0**, app **0.23.0-2**.
 
 Add this repository in **Settings → Apps → App store → Repositories**:
 

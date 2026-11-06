@@ -151,3 +151,7 @@ copy the persistent data to the new app before its first start. Configure its
 options through Supervisor. Keep runtime PID files and container install
 facts out of the migration. Verify a chat response before uninstalling the
 old app.
+
+The Vite preload helper is patched at build time to honor the dynamic ingress
+prefix. Patched JavaScript filenames are versioned to invalidate browser caches.
+The web terminal starts in `/data/workspace`, with HOME set to `/data`.
