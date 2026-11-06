@@ -1,3 +1,10 @@
+# 0.23.0-1
+
+- Upgrade the official Hermes image to stable v0.23.0.
+- Preserve upstream s6 supervision and run ingress and terminal as supervised services.
+- Keep dashboard websocket connections behind Home Assistant ingress.
+- Migrate existing persistent state without copying container runtime files.
+
 # Changelog
 
 ## 2026.5.7-20

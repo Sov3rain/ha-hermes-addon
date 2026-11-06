@@ -104,7 +104,7 @@ If you want the full upstream setup flow, install notes, and provider details, s
 
 ## Notes
 
-- This add-on pins Hermes to `v2026.5.7`.
+- This add-on pins Hermes to `v0.23.0`.
 - Supported Home Assistant architectures are `amd64` and `aarch64`.
 - The ingress root page is a custom launcher with an embedded terminal.
 - The full Hermes dashboard is exposed under `/dashboard/` behind ingress.
@@ -126,3 +126,28 @@ If you want the full upstream setup flow, install notes, and provider details, s
 - `model_name`: `qwen2.5-coder`
 - `model_base_url`: `http://192.168.1.20:1234/v1`
 - `openai_api_key`: `none`
+
+
+## Sov3rain fork and updates
+
+This fork pins the official Hermes image to `v0.23.0`. The upstream s6
+supervisor runs the gateway and dashboard; the add-on supplies nginx ingress
+and an optional terminal as supervised services. No host Docker access is granted.
+
+Install this repository from Home Assistant's app store:
+`https://github.com/Sov3rain/ha-hermes-addon`. Configure the app, then use
+**Open Web UI**. The interface is protected by Home Assistant ingress and is
+not published on a host port.
+
+Update this app through Home Assistant, not the dashboard's **Update Hermes**
+button or `hermes update`: Docker installs have no Git checkout to update.
+Each release must pin a tested upstream image and increment `version` in
+`config.yaml`. Back up the app before upgrading. `/data` holds configuration,
+secrets, memories and sessions and survives image replacement.
+
+When migrating from another repository, the app has a different repository
+slug and a separate data directory. Stop the old app, back up its state and
+copy the persistent data to the new app before its first start. Configure its
+options through Supervisor. Keep runtime PID files and container install
+facts out of the migration. Verify a chat response before uninstalling the
+old app.

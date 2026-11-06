@@ -9,4 +9,4 @@ Highlights:
 - browser terminal access through the `Open Terminal` button or `/terminal/`
 - persistent Hermes state stored in the add-on private `/data` directory
 - support for `amd64` and `aarch64`
-- pinned to `nousresearch/hermes-agent:v2026.5.7`
+- pinned to `nousresearch/hermes-agent:v0.23.0`

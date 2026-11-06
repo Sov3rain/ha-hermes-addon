@@ -31,7 +31,7 @@ from pathlib import Path
 import json
 import re
 
-import yaml
+import hermes_yaml as yaml
 
 home = Path('/data')
 options = json.loads((home / 'options.json').read_text(encoding='utf-8'))
@@ -146,4 +146,5 @@ fi
 
 export ENABLE_TERMINAL
 
-exec /opt/hermes/docker/entrypoint.sh /addon-run.sh
+chown -R hermes:hermes "${HERMES_DATA_DIR}/nginx"
+exec /opt/hermes/docker/entrypoint-dispatch.sh gateway run

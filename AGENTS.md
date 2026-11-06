@@ -12,12 +12,12 @@
 - User-facing add-on docs are `hermes_agent/DOCS.md`; keep them aligned with `config.yaml` and `run.sh`.
 
 ## Runtime assumptions that matter
-- The add-on wraps the official upstream image `nousresearch/hermes-agent:v2026.5.7`; do not silently switch to `latest`.
+- The add-on wraps the official upstream image `nousresearch/hermes-agent:v0.23.0`; do not silently switch to `latest`.
 - Supported Home Assistant architectures are only `amd64` and `aarch64`.
 - `HERMES_HOME` is set to `/data`, so Hermes state is intentionally stored in the add-on private persistent directory, not `/opt/data`.
 - `run.sh` runs as the container entrypoint specifically so it can read Home Assistant's root-owned `/data/options.json` before the upstream Hermes entrypoint drops privileges.
 - `run.sh` generates/updates `/data/config.yaml` and a managed block inside `/data/.env` from `/data/options.json` on every startup.
-- `run.sh` must hand off to `/opt/hermes/docker/entrypoint.sh /addon-run.sh`; `addon-run.sh` then runs as the non-root `hermes` user after upstream bootstrap and dashboard startup.
+- `run.sh` must exec `/opt/hermes/docker/entrypoint-dispatch.sh gateway run` as PID 1. Preserve upstream s6 supervision. The services in `hermes_agent/services` run nginx and ttyd as hermes.
 - The dashboard is always enabled for Home Assistant ingress, but Hermes itself listens on `127.0.0.1:9120`; nginx owns ingress port `9119` and forwards `X-Ingress-Path` as `X-Forwarded-Prefix`.
 - The internal Hermes API server is intentionally enabled on `127.0.0.1` only so the dashboard can talk to the gateway without exposing the API externally.
 
@@ -49,3 +49,10 @@
 ## Current known gaps
 - Real ingress behavior still needs validation in a live Home Assistant environment; if dashboard ingress fails, the likely follow-up is a small proxy layer rather than a redesign of the add-on structure.
 - Terminal access is provided through `ttyd` on internal port `7681`, proxied at the ingress subpath `/terminal/` when `enable_terminal` is true.
+
+## Fork maintenance
+- `addon-run.sh` is retained for history, but no longer copied or executed.
+- v0.23 uses `hermes_yaml`, not PyYAML. Use the upstream bundled parser.
+- Preserve s6 as PID 1. Do not call the deprecated entrypoint.sh shim.
+- Pin the upstream multiarch image digest and bump the app version for each release.
+- Test HTTP, WebSocket chat, an actual model response and a managed HAOS restart.

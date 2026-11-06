@@ -1,64 +1,22 @@
-# Hermes Agent Home Assistant Add-on
+# Hermes Agent for Home Assistant OS — Sov3rain fork
 
-![Hermes Agent Home Assistant Add-on](hermes_agent/logo.png)
+Home Assistant app wrapping the official Nous Research Hermes Docker image.
+Current release: Hermes **v0.23.0**, app **0.23.0-1**.
 
-Home Assistant add-on repository for running Hermes Agent inside Home Assistant.
+Add this repository in **Settings → Apps → App store → Repositories**:
 
-GitHub repository:
-- `https://github.com/diegaccio/ha-hermes-addon`
+```text
+https://github.com/Sov3rain/ha-hermes-addon
+```
 
-Current add-on:
-- `hermes_agent`: minimal ingress-first wrapper around the official `nousresearch/hermes-agent:v2026.5.7` image
+Install **Hermes Agent (Sov3rain)**, configure your model and API key, and use
+**Open Web UI**. State lives in the app's persistent `/data` directory.
+The dashboard and terminal are available only through authenticated Home Assistant ingress.
 
-Status:
-- current add-on version: `2026.5.7-20`
-- pinned to Hermes `v2026.5.7`
-- targets `amd64` and `aarch64`
+Updates are installed through Home Assistant. The Hermes dashboard's source
+updater does not update Docker images. New app releases pin and test a specific
+upstream version; no moving `latest` tag is used.
 
-## Install in Home Assistant
-
-1. Open Home Assistant.
-2. Go to `Settings -> Add-ons -> Add-on Store`.
-3. Open the three-dot menu and choose `Repositories`.
-4. Add this repository URL:
-   - `https://github.com/diegaccio/ha-hermes-addon`
-5. Refresh the Add-on Store if needed.
-6. Open the `Hermes Agent` add-on.
-7. Click `Install`.
-
-## First start
-
-1. Open the add-on `Configuration` tab.
-2. Set at least:
-   - `model_provider`
-   - `model_name`
-   - the matching API key field for your provider
-3. Click `Save`.
-4. Start the add-on.
-5. Open `Show in sidebar` or the add-on page to access the custom ingress launcher.
-
-## Ingress layout
-
-- The add-on root ingress page is a custom launcher.
-- It includes an embedded terminal in the lower section.
-- It also includes a button to open the full Hermes dashboard.
-
-## Terminal access
-
-- Default: `enable_terminal: true`
-- Direct terminal route: append `/terminal/` to the add-on ingress URL
-- Full Hermes dashboard route: append `/dashboard/` to the add-on ingress URL
-
-## Notes
-
-- Supported architectures: `amd64`, `aarch64`
-- Hermes state is stored in the add-on private `/data` directory
-- The dashboard is exposed through Home Assistant ingress on port `9119`
-- The web terminal is proxied through ingress at `/terminal/`
-- The full Hermes dashboard is proxied through ingress at `/dashboard/`
-- The internal Hermes API stays bound to loopback inside the container
-
-## Add-on docs
-
-Detailed add-on options are documented in:
-- `hermes_agent/DOCS.md`
+This is a community fork of [diegaccio/ha-hermes-addon](https://github.com/diegaccio/ha-hermes-addon),
+not an official Nous Research or Home Assistant app.
+See [configuration and migration notes](hermes_agent/DOCS.md).
